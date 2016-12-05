@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icss.dao.StuinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.icss.bean.Stuinfo" >
+    <id column="stuid" property="stuid" jdbcType="INTEGER" />
+    <result column="stuname" property="stuname" jdbcType="VARCHAR" />
+    <result column="stuscure" property="stuscure" jdbcType="VARCHAR" />
+    <result column="stucard" property="stucard" jdbcType="VARCHAR" />
+    <result column="stuphone" property="stuphone" jdbcType="VARCHAR" />
+    <result column="stuperson" property="stuperson" jdbcType="VARCHAR" />
+    <result column="stuemai" property="stuemai" jdbcType="VARCHAR" />
+    <result column="stuschool" property="stuschool" jdbcType="VARCHAR" />
+    <result column="stugrade" property="stugrade" jdbcType="VARCHAR" />
+    <result column="stuspecia" property="stuspecia" jdbcType="VARCHAR" />
+    <result column="studatetime" property="studatetime" jdbcType="VARCHAR" />
+    <result column="strenglev" property="strenglev" jdbcType="VARCHAR" />
+    <result column="stusex" property="stusex" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stuid, stuname, stuscure, stucard, stuphone, stuperson, stuemai, stuschool, stugrade, 
+    stuspecia, studatetime, strenglev,stusex
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stuinfo
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stuinfo
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.icss.bean.Stuinfo" >
+    insert into stuinfo (stuid, stuname,stusex, stuscure, 
+      stucard, stuphone, stuperson, 
+      stuemai, stuschool, stugrade, 
+      stuspecia, studatetime, strenglev
+      )
+    values (#{stuid,jdbcType=INTEGER}, #{stuname,jdbcType=VARCHAR},#{stusex,jdbcType=VARCHAR}, #{stuscure,jdbcType=VARCHAR}, 
+      #{stucard,jdbcType=VARCHAR}, #{stuphone,jdbcType=VARCHAR}, #{stuperson,jdbcType=VARCHAR}, 
+      #{stuemai,jdbcType=VARCHAR}, #{stuschool,jdbcType=VARCHAR}, #{stugrade,jdbcType=VARCHAR}, 
+      #{stuspecia,jdbcType=VARCHAR}, #{studatetime,jdbcType=VARCHAR}, #{strenglev,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.icss.bean.Stuinfo" >
+    insert into stuinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        stuid,
+      </if>
+      <if test="stusex != null" >
+        stusex,
+      </if>
+      <if test="stuname != null" >
+        stuname,
+      </if>
+      <if test="stuscure != null" >
+        stuscure,
+      </if>
+      <if test="stucard != null" >
+        stucard,
+      </if>
+      <if test="stuphone != null" >
+        stuphone,
+      </if>
+      <if test="stuperson != null" >
+        stuperson,
+      </if>
+      <if test="stuemai != null" >
+        stuemai,
+      </if>
+      <if test="stuschool != null" >
+        stuschool,
+      </if>
+      <if test="stugrade != null" >
+        stugrade,
+      </if>
+      <if test="stuspecia != null" >
+        stuspecia,
+      </if>
+      <if test="studatetime != null" >
+        studatetime,
+      </if>
+      <if test="strenglev != null" >
+        strenglev,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuid != null" >
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="stuname != null" >
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stuscure != null" >
+        #{stuscure,jdbcType=VARCHAR},
+      </if>
+      <if test="stucard != null" >
+        #{stucard,jdbcType=VARCHAR},
+      </if>
+      <if test="stuphone != null" >
+        #{stuphone,jdbcType=VARCHAR},
+      </if>
+      <if test="stuperson != null" >
+        #{stuperson,jdbcType=VARCHAR},
+      </if>
+      <if test="stuemai != null" >
+        #{stuemai,jdbcType=VARCHAR},
+      </if>
+      <if test="stuschool != null" >
+        #{stuschool,jdbcType=VARCHAR},
+      </if>
+      <if test="stugrade != null" >
+        #{stugrade,jdbcType=VARCHAR},
+      </if>
+      <if test="stuspecia != null" >
+        #{stuspecia,jdbcType=VARCHAR},
+      </if>
+      <if test="studatetime != null" >
+        #{studatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="strenglev != null" >
+        #{strenglev,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icss.bean.Stuinfo" >
+    update stuinfo
+    <set >
+      <if test="stuname != null" >
+        stuname = #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stuscure != null" >
+        stuscure = #{stuscure,jdbcType=VARCHAR},
+      </if>
+      <if test="stucard != null" >
+        stucard = #{stucard,jdbcType=VARCHAR},
+      </if>
+      <if test="stuphone != null" >
+        stuphone = #{stuphone,jdbcType=VARCHAR},
+      </if>
+      <if test="stuperson != null" >
+        stuperson = #{stuperson,jdbcType=VARCHAR},
+      </if>
+      <if test="stuemai != null" >
+        stuemai = #{stuemai,jdbcType=VARCHAR},
+      </if>
+      <if test="stuschool != null" >
+        stuschool = #{stuschool,jdbcType=VARCHAR},
+      </if>
+      <if test="stugrade != null" >
+        stugrade = #{stugrade,jdbcType=VARCHAR},
+      </if>
+      <if test="stuspecia != null" >
+        stuspecia = #{stuspecia,jdbcType=VARCHAR},
+      </if>
+      <if test="studatetime != null" >
+        studatetime = #{studatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="strenglev != null" >
+        strenglev = #{strenglev,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icss.bean.Stuinfo" >
+    update stuinfo
+    set stuname = #{stuname,jdbcType=VARCHAR},
+      stuscure = #{stuscure,jdbcType=VARCHAR},
+      stucard = #{stucard,jdbcType=VARCHAR},
+      stuphone = #{stuphone,jdbcType=VARCHAR},
+      stuperson = #{stuperson,jdbcType=VARCHAR},
+      stuemai = #{stuemai,jdbcType=VARCHAR},
+      stuschool = #{stuschool,jdbcType=VARCHAR},
+      stugrade = #{stugrade,jdbcType=VARCHAR},
+      stuspecia = #{stuspecia,jdbcType=VARCHAR},
+      studatetime = #{studatetime,jdbcType=VARCHAR},
+      strenglev = #{strenglev,jdbcType=VARCHAR}
+    where stuid = #{stuid,jdbcType=INTEGER}
+  </update>
+  <select id="info_view" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from stuinfo
+  </select>
+  
+</mapper>

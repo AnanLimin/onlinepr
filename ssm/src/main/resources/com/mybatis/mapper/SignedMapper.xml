@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- @author 李敏  -->
+<!-- @date 2016/10/17 -->
+<mapper namespace="com.icss.dao.SignedMapper" >
+  <resultMap id="BaseResultMap" type="com.icss.bean.Signed" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="stime" property="stime" jdbcType="VARCHAR" />
+    <result column="sbusinesstype" property="sbusinesstype" jdbcType="VARCHAR" />
+    <result column="scustomername" property="scustomername" jdbcType="VARCHAR" />
+    <result column="scustomerschool" property="scustomerschool" jdbcType="VARCHAR" />
+    <result column="scustomercollege" property="scustomercollege" jdbcType="VARCHAR" />
+    <result column="scustomermajor" property="scustomermajor" jdbcType="VARCHAR" />
+    <result column="scustomercardid" property="scustomercardid" jdbcType="VARCHAR" />
+    <result column="scustomerbankcardid" property="scustomerbankcardid" jdbcType="VARCHAR" />
+    <result column="scustomergrade" property="scustomergrade" jdbcType="VARCHAR" />
+    <result column="speoplenum" property="speoplenum" jdbcType="INTEGER" />
+    <result column="studyfee" property="studyfee" jdbcType="REAL" />
+    <result column="spacefee" property="spacefee" jdbcType="REAL" />
+    <result column="backfee" property="backfee" jdbcType="REAL" />
+    <result column="depositfee" property="depositfee" jdbcType="REAL" />
+    <result column="sale" property="sale" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="sarea" property="sarea" jdbcType="VARCHAR" />
+    <result column="sremark" property="sremark" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="stateid" property="stateid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="SignedMap" type="com.icss.bean.Signed" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="stime" property="stime" jdbcType="VARCHAR" />
+    <result column="sbusinesstype" property="sbusinesstype" jdbcType="VARCHAR" />
+    <result column="scustomername" property="scustomername" jdbcType="VARCHAR" />
+    <result column="scustomerschool" property="scustomerschool" jdbcType="VARCHAR" />
+    <result column="scustomercollege" property="scustomercollege" jdbcType="VARCHAR" />
+    <result column="scustomermajor" property="scustomermajor" jdbcType="VARCHAR" />
+    <result column="scustomercardid" property="scustomercardid" jdbcType="VARCHAR" />
+    <result column="scustomerbankcardid" property="scustomerbankcardid" jdbcType="VARCHAR" />
+    <result column="scustomergrade" property="scustomergrade" jdbcType="VARCHAR" />
+    <result column="speoplenum" property="speoplenum" jdbcType="INTEGER" />
+    <result column="studyfee" property="studyfee" jdbcType="REAL" />
+    <result column="spacefee" property="spacefee" jdbcType="REAL" />
+    <result column="backfee" property="backfee" jdbcType="REAL" />
+    <result column="depositfee" property="depositfee" jdbcType="REAL" />
+    <result column="sale" property="sale" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="sarea" property="sarea" jdbcType="VARCHAR" />
+    <result column="sremark" property="sremark" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="stateid" property="stateid" jdbcType="INTEGER" />
+    <result column="condition" property="condition" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="subtotal" property="subtotal" jdbcType="VARCHAR" /> 
+    <result column="ctime" property="ctime" jdbcType="VARCHAR" />
+    <result column="tale" property="tale" jdbcType="VARCHAR" /> 
+  </resultMap>
+  <resultMap id="IaerMap" type="com.icss.bean.Iaer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="REAL" />
+    <result column="handler" property="handler" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="sale" property="sale" jdbcType="VARCHAR" />
+    <result column="scustomername" property="scustomername" jdbcType="VARCHAR" />
+    <result column="scustomerschool" property="scustomerschool" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="DrawbackMap" type="com.icss.bean.Drawback" >
+    <id column="dbid" property="dbid" jdbcType="INTEGER" />
+    <result column="dbtime" property="dbtime" jdbcType="VARCHAR" />
+    <result column="dbemp" property="dbemp" jdbcType="VARCHAR" />
+    <result column="dbamount" property="dbamount" jdbcType="REAL" />
+    <result column="dbtype" property="dbtype" jdbcType="INTEGER" />
+    <result column="stateid" property="stateid" jdbcType="INTEGER" />
+    <result column="signedstatus" property="signedstatus" jdbcType="INTEGER" />
+    <result column="statu" property="statu" jdbcType="VARCHAR" />
+    <result column="dbremark" property="dbremark" jdbcType="VARCHAR" />
+    <result column="scustomerbankcardid" property="scustomerbankcardid" jdbcType="VARCHAR" />
+    <result column="scustomercardid" property="scustomercardid" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="scustomername" property="scustomername" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+     <result column="condition" property="condition" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, stime, sbusinesstype, scustomername, scustomerschool, scustomercollege, scustomermajor, 
+    scustomercardid, scustomerbankcardid, scustomergrade, speoplenum, studyfee, spacefee, 
+    backfee, depositfee, sale, dept, sarea, sremark, stateid,bank
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from signed
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from signed
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deletebackfee" parameterType="java.lang.Integer" >
+    delete from drawback
+    where dbid = #{dbid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.icss.bean.Signed" >
+    insert into signed (sid, stime, sbusinesstype, 
+      scustomername, scustomerschool, scustomercollege, 
+      scustomermajor, scustomercardid, scustomerbankcardid, 
+      scustomergrade, speoplenum, studyfee, 
+      spacefee, backfee, depositfee, 
+      sale, dept, sarea, 
+      sremark,bank)
+    values (#{sid,jdbcType=INTEGER}, #{stime,jdbcType=VARCHAR}, #{sbusinesstype,jdbcType=VARCHAR}, 
+      #{scustomername,jdbcType=VARCHAR}, #{scustomerschool,jdbcType=VARCHAR}, #{scustomercollege,jdbcType=VARCHAR}, 
+      #{scustomermajor,jdbcType=VARCHAR}, #{scustomercardid,jdbcType=VARCHAR}, #{scustomerbankcardid,jdbcType=VARCHAR}, 
+      #{scustomergrade,jdbcType=VARCHAR}, #{speoplenum,jdbcType=INTEGER}, #{studyfee,jdbcType=REAL}, 
+      #{spacefee,jdbcType=REAL}, #{backfee,jdbcType=REAL}, #{depositfee,jdbcType=REAL}, 
+      #{sale,jdbcType=VARCHAR}, #{dept,jdbcType=VARCHAR}, #{sarea,jdbcType=VARCHAR}, 
+      #{sremark,jdbcType=VARCHAR},#{bank,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icss.bean.Signed" >
+    insert into signed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="stime != null" >
+        stime,
+      </if>
+      <if test="sbusinesstype != null" >
+        sbusinesstype,
+      </if>
+      <if test="scustomername != null" >
+        scustomername,
+      </if>
+      <if test="scustomerschool != null" >
+        scustomerschool,
+      </if>
+      <if test="scustomercollege != null" >
+        scustomercollege,
+      </if>
+      <if test="scustomermajor != null" >
+        scustomermajor,
+      </if>
+      <if test="scustomercardid != null" >
+        scustomercardid,
+      </if>
+      <if test="scustomerbankcardid != null" >
+        scustomerbankcardid,
+      </if>
+      <if test="scustomergrade != null" >
+        scustomergrade,
+      </if>
+      <if test="speoplenum != null" >
+        speoplenum,
+      </if>
+      <if test="studyfee != null" >
+        studyfee,
+      </if>
+      <if test="spacefee != null" >
+        spacefee,
+      </if>
+      <if test="backfee != null" >
+        backfee,
+      </if>
+      <if test="depositfee != null" >
+        depositfee,
+      </if>
+      <if test="sale != null" >
+        sale,
+      </if>
+      <if test="dept != null" >
+        dept,
+      </if>
+      <if test="sarea != null" >
+        sarea,
+      </if>
+      <if test="sremark != null" >
+        sremark,
+      </if>
+      <if test="stateid != null" >
+        stateid,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="stime != null" >
+        #{stime,jdbcType=VARCHAR},
+      </if>
+      <if test="sbusinesstype != null" >
+        #{sbusinesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomername != null" >
+        #{scustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomerschool != null" >
+        #{scustomerschool,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomercollege != null" >
+        #{scustomercollege,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomermajor != null" >
+        #{scustomermajor,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomercardid != null" >
+        #{scustomercardid,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomerbankcardid != null" >
+        #{scustomerbankcardid,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomergrade != null" >
+        #{scustomergrade,jdbcType=VARCHAR},
+      </if>
+      <if test="speoplenum != null" >
+        #{speoplenum,jdbcType=INTEGER},
+      </if>
+      <if test="studyfee != null" >
+        #{studyfee,jdbcType=REAL},
+      </if>
+      <if test="spacefee != null" >
+        #{spacefee,jdbcType=REAL},
+      </if>
+      <if test="backfee != null" >
+        #{backfee,jdbcType=REAL},
+      </if>
+      <if test="depositfee != null" >
+        #{depositfee,jdbcType=REAL},
+      </if>
+      <if test="sale != null" >
+        #{sale,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="sarea != null" >
+        #{sarea,jdbcType=VARCHAR},
+      </if>
+      <if test="sremark != null" >
+        #{sremark,jdbcType=VARCHAR},
+      </if>
+      <if test="stateid != null" >
+        #{stateid,jdbcType=INTEGER},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icss.bean.Signed" >
+    update signed
+    <set >
+      <if test="stime != null" >
+        stime = #{stime,jdbcType=VARCHAR},
+      </if>
+      <if test="sbusinesstype != null" >
+        sbusinesstype = #{sbusinesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomername != null" >
+        scustomername = #{scustomername,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomerschool != null" >
+        scustomerschool = #{scustomerschool,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomercollege != null" >
+        scustomercollege = #{scustomercollege,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomermajor != null" >
+        scustomermajor = #{scustomermajor,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomercardid != null" >
+        scustomercardid = #{scustomercardid,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomerbankcardid != null" >
+        scustomerbankcardid = #{scustomerbankcardid,jdbcType=VARCHAR},
+      </if>
+      <if test="scustomergrade != null" >
+        scustomergrade = #{scustomergrade,jdbcType=VARCHAR},
+      </if>
+      <if test="speoplenum != null" >
+        speoplenum = #{speoplenum,jdbcType=INTEGER},
+      </if>
+      <if test="studyfee != null" >
+        studyfee = #{studyfee,jdbcType=REAL},
+      </if>
+      <if test="spacefee != null" >
+        spacefee = #{spacefee,jdbcType=REAL},
+      </if>
+      <if test="backfee != null" >
+        backfee = #{backfee,jdbcType=REAL},
+      </if>
+      <if test="depositfee != null" >
+        depositfee = #{depositfee,jdbcType=REAL},
+      </if>
+      <if test="sale != null" >
+        sale = #{sale,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        dept = #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="sarea != null" >
+        sarea = #{sarea,jdbcType=VARCHAR},
+      </if>
+      <if test="sremark != null" >
+        sremark = #{sremark,jdbcType=VARCHAR},
+      </if>
+      <if test="stateid != null" >
+        stateid = #{stateid,jdbcType=INTEGER},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icss.bean.Signed" >
+    update signed
+    set stime = #{stime,jdbcType=VARCHAR},
+      sbusinesstype = #{sbusinesstype,jdbcType=VARCHAR},
+      scustomername = #{scustomername,jdbcType=VARCHAR},
+      scustomerschool = #{scustomerschool,jdbcType=VARCHAR},
+      scustomercollege = #{scustomercollege,jdbcType=VARCHAR},
+      scustomermajor = #{scustomermajor,jdbcType=VARCHAR},
+      scustomercardid = #{scustomercardid,jdbcType=VARCHAR},
+      scustomerbankcardid = #{scustomerbankcardid,jdbcType=VARCHAR},
+      scustomergrade = #{scustomergrade,jdbcType=VARCHAR},
+      speoplenum = #{speoplenum,jdbcType=INTEGER},
+      studyfee = #{studyfee,jdbcType=REAL},
+      spacefee = #{spacefee,jdbcType=REAL},
+      backfee = #{backfee,jdbcType=REAL},
+      depositfee = #{depositfee,jdbcType=REAL},
+      sale = #{sale,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=VARCHAR},
+      sarea = #{sarea,jdbcType=VARCHAR},
+      sremark = #{sremark,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      stateid = #{stateid,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询自己的签单信息及签单状态（默认按日期降序排）  -->
+  <select id="signedinfoIsMine" resultMap="SignedMap" parameterType="java.lang.String">
+  <bind name="sale" value="_parameter"/>
+  	 SELECT si.sid, stime, sbusinesstype, scustomername, scustomerschool, scustomercollege, scustomermajor, 
+	    scustomercardid, scustomerbankcardid, scustomergrade, speoplenum, studyfee, spacefee, 
+	    backfee, depositfee, sale, dept, sarea, sremark, ifnull(a,0) stateid,st.`condition`,bank
+	 FROM signed si
+	 INNER JOIN `status` st ON si.stateid = st.stateid
+	 LEFT JOIN (SELECT sid ,SUM(amount) a FROM iaer GROUP BY sid) i ON i.sid = si.sid
+	 WHERE sale=#{sale,jdbcType=VARCHAR}
+	 ORDER BY a,stime DESC
+  </select>
+  
+  <!-- 查询所有待收款,待返款,待退款的签单  -->
+  <select id="pending" resultMap="SignedMap" parameterType="java.lang.Integer">
+  	SELECT si.sid, stime, sbusinesstype, scustomername, scustomerschool, scustomercollege, scustomermajor, 
+	    scustomercardid, scustomerbankcardid, scustomergrade, speoplenum, studyfee, spacefee, 
+	    backfee, depositfee, sale, dept, sarea, sremark,si.stateid, allmoney `condition`,bank
+	 FROM signed si
+	 LEFT JOIN (SELECT sid,sum(amount) allmoney FROM iaer GROUP BY sid) s ON s.sid = si.sid
+	 WHERE si.stateid=#{stateid,jdbcType=INTEGER} order by `condition` desc,stime desc,sid desc
+  </select>
+   
+  <!-- 按照客户姓名模糊查询相关数据  -->
+  <select id="selectcusbyname" resultMap="SignedMap" parameterType="java.lang.String">
+  <bind name="cusname" value=" '%'+ _parameter + '%'"/>
+  	SELECT si.sid, stime, sbusinesstype, scustomername, scustomerschool, scustomercollege, scustomermajor, 
+	    scustomercardid, scustomerbankcardid, scustomergrade, speoplenum, studyfee, spacefee, 
+	    backfee, depositfee, sale, dept, sarea, sremark,si.stateid, allmoney `condition`,bank
+	 FROM signed si
+	 LEFT JOIN (SELECT sid,sum(amount) allmoney FROM iaer GROUP BY sid) s ON s.sid = si.sid
+	 WHERE scustomername LIKE #{cusname,jdbcType=VARCHAR} order by `condition` desc
+  </select>
+  
+  <!-- 查询单个签单的所有信息，包括已缴金额  -->
+  <select id="onesignedinfo"  resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select si.sid, stime, sbusinesstype, scustomername, scustomerschool, scustomercollege, scustomermajor, scustomercardid, scustomerbankcardid,
+	 scustomergrade, speoplenum, studyfee, spacefee, backfee, depositfee, sale, dept, sarea, sremark,si.stateid,IFNULL(allmoney,0) `condition`,bank
+	 from signed si LEFT JOIN (SELECT sid,sum(amount) allmoney FROM iaer WHERE sid=#{sid,jdbcType=INTEGER}) s ON s.sid = si.sid WHERE si.sid=#{sid,jdbcType=INTEGER}
+  </select>
+	
+  <!-- 增加收支记录 -->
+  <insert id="addrecord" parameterType="com.icss.bean.Iaer" >
+    insert into iaer (id, time, type, amount, handler, remark, sid)
+    values (#{id,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=REAL}, #{handler,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{sid,jdbcType=INTEGER})
+  </insert>
+
+  <!-- 查看所有待返款/退款的申请 -->
+  <select id="drawbackinfo" resultMap="DrawbackMap" parameterType="java.lang.Integer" >
+    select dbid,dbtime,dbemp,dbamount,d.stateid,st.`condition` statu, s.stateid signedstatus,
+    dbtype,dbremark,d.sid,scustomername,scustomercardid,scustomerbankcardid,bank
+    from drawback d inner join signed s on d.sid = s.sid 
+    INNER JOIN `status` st on st.stateid = d.stateid
+    where dbtype = #{dbtype,jdbcType=INTEGER} and d.stateid &lt;10
+  </select>
+  
+  <!-- 查看单个（指定）退款/返款申请 -->
+  <select id="onebackinfo" resultMap="DrawbackMap" parameterType="java.lang.Integer" >
+    select dbid,dbtime,dbemp,dbamount,d.stateid,st.`condition` statu, s.stateid signedstatus,
+    dbtype,dbremark,d.sid,scustomername,scustomercardid,scustomerbankcardid,bank
+    from drawback d inner join signed s on d.sid = s.sid 
+    INNER JOIN `status` st on st.stateid = d.stateid
+    where dbid = #{dbid,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 销售查询普通销售自己未完成收款中应收款项钱数  -->
+  <select id="rece" parameterType="java.lang.String" resultType="java.lang.Double">
+  	SELECT SUM(studyfee+spacefee+backfee+depositfee) rece FROM signed WHERE sale=#{_parameter,jdbcType=VARCHAR} and stateid=1
+  </select> 
+  
+  <!-- 查询普通销售自己未完成收款已收的款项 -->
+  <select id="done" parameterType="java.lang.String" resultType="java.lang.Double">
+  	SELECT ifnull(sum(amount),0) done FROM iaer WHERE sid IN ( SELECT sid FROM signed WHERE sale=#{_parameter,jdbcType=VARCHAR} and stateid=1 ) 
+  </select>
+  
+  <!-- boss或者副总查询所有未完成收款中签单的所有金额 --> 
+  <select id="allrece" resultType="java.lang.Double">
+  	SELECT SUM(studyfee+spacefee+backfee+depositfee) allrece FROM signed WHERE stateid=1
+  </select>
+ 
+ <!-- boss或者副总查询所有未完成收款中已收的金额  -->
+ <select id="alldone" resultType="java.lang.Double">
+ 	SELECT ifnull(sum(amount),0) done FROM iaer WHERE sid IN ( SELECT sid FROM signed WHERE stateid=1 ) 
+ </select>
+ 
+ <!-- 销售主管查看自己和自己下属所有未完成收款签单的所有金额  -->
+ <select id="exerece" resultType="java.lang.Double" parameterType="java.lang.String">
+	SELECT SUM(studyfee+spacefee+backfee+depositfee) FROM signed WHERE sale in (SELECT ename FROM empinfo WHERE superiorid in (
+	SELECT eid FROM empinfo where ename =#{_parameter,jdbcType=VARCHAR}) OR ename =#{_parameter,jdbcType=VARCHAR} ) and stateid=1
+ </select>
+ 
+ <!-- 销售主管查看自己和自己下属所有未完成收款中已收金额  -->
+ <select id="exedone" resultType="java.lang.Double" parameterType="java.lang.String">
+ 	SELECT IFNULL(SUM(amount),0) FROM iaer WHERE sid in(
+	SELECT sid FROM signed WHERE sale in (SELECT ename FROM empinfo WHERE superiorid in (
+	SELECT eid FROM empinfo where ename =#{_parameter,jdbcType=VARCHAR}) OR ename =#{_parameter,jdbcType=VARCHAR} ) and stateid=1)
+ </select>
+ 
+ <!-- 销售总监查看自己部门所有未完成收款的签单总额 -->
+ <select id="deptrece" parameterType="java.lang.String" resultType="java.lang.Double">
+ 	select SUM(studyfee+spacefee+backfee+depositfee) from signed WHERE dept=(SELECT d_name FROM view_empallinfo WHERE ename=#{_parameter,jdbcType=VARCHAR}
+	) AND stateid =1
+ </select>
+ 
+ <!-- 销售总监查看自己部门所有未完成收款已交的金额 -->
+ <select id="deptdone" parameterType="java.lang.String" resultType="java.lang.Double">
+ 	select ifnull(sum(amount),0) from iaer where sid in (
+	select sid from signed WHERE dept=(SELECT d_name FROM view_empallinfo WHERE ename=#{_parameter,jdbcType=VARCHAR}) AND stateid =1 )
+ </select>
+  
+  <!-- 查询当前退返款申请记录的状态 -->
+  <select id="applicationstatus" resultType="java.lang.String" parameterType="java.lang.Integer">
+  	SELECT stateid FROM drawback where sid = (
+	SELECT sid FROM drawback WHERE dbid=#{dbid,jdbcType=INTEGER})
+  </select>
+  
+  <!-- 更改申请签单信息状态 -->
+  <update id="updatedrawback" parameterType="com.icss.bean.Drawback" >
+    update drawback
+    set stateid = #{stateid,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询所有收支记录  -->
+  <select id="alliaerinfo" resultMap="IaerMap">
+  	SELECT id,time,type,amount,handler,remark,s.sid,s.sale,s.scustomername,s.dept scustomerschool FROM iaer i
+	INNER JOIN signed s ON s.sid=i.sid
+	 ORDER BY time DESC
+  </select>
+  
+  <!-- 根据客户姓名或者销售姓名查看收支记录 -->
+  <select id="selectiaerbyname" parameterType="com.icss.bean.Signed" resultMap="IaerMap">
+    <bind name="s" value=" '%'+sale+'%'"/>
+    <bind name="scustomernames" value=" '%'+sremark+'%'"/>
+  		SELECT id,time,type,amount,handler,remark,s.sid,s.sale,s.scustomername,s.dept scustomerschool
+  	FROM signed s INNER JOIN iaer  i ON i.sid = s.sid
+ 	WHERE sale LIKE #{sales,jdbcType=VARCHAR} AND scustomername LIKE #{scustomernames,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询当前销售的部门名称 -->
+  <select id="getdname" parameterType="java.lang.String" resultType="java.lang.String">
+  <bind name="ename" value="_parameter"/>
+  	SELECT d_name FROM view_empallinfo WHERE ename=#{ename,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 删除多条签单  -->
+  <delete id="deletemultiple" parameterType="java.util.List">
+    delete from signed
+    where sid in
+   <foreach collection="list" item="ids"  open="(" separator="," close=")">  
+        #{ids}
+   </foreach>
+  </delete>  
+  
+  <!-- 将多条签单的状态更改为已已删除  -->
+  <update id="updatemultiple" parameterType="java.util.List">
+  	UPDATE signed SET  stateid = 12
+    where sid in
+   <foreach collection="list" item="ids"  open="(" separator="," close=")">  
+        #{ids}
+   </foreach>
+  </update>  
+  
+  
+  <!-- 插入退返签单信息记录-->
+  <insert id="insertDreaBack" parameterType="com.icss.bean.Drawback" >
+    insert into drawback (dbid, dbtime, dbemp, 
+      dbamount, stateid, dbtype, 
+      dbremark, sid)
+    values (#{dbid,jdbcType=INTEGER}, #{dbtime,jdbcType=VARCHAR}, #{dbemp,jdbcType=VARCHAR}, 
+      #{dbamount,jdbcType=REAL}, #{stateid,jdbcType=INTEGER}, #{dbtype,jdbcType=INTEGER}, 
+      #{dbremark,jdbcType=VARCHAR}, #{sid,jdbcType=INTEGER})
+  </insert>
+  <!-- 查询登进的用户的所有退返签单信息记录  -->
+  <select id="dbinfoIsMine"  resultMap="DrawbackMap" parameterType="java.lang.String">
+  <bind name="dbemp" value="_parameter"/>
+ 	 select s.sid,d.dbid,d.dbtime,d.dbemp,d.dbamount,d.dbtype,d.dbremark,st.`condition`,s.stateid,s.scustomername,s.stime scustomercardid, am bank
+	from  signed s 
+	inner join drawback d on d.sid = s.sid 
+	INNER JOIN `status` st on st.stateid = d.stateid
+	INNER JOIN (SELECT sid , SUM(amount) am FROM iaer GROUP BY sid) i ON i.sid=s.sid
+    where dbemp = #{dbemp,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查看自己部门每个销售的签单和收款金额 -->
+  <select id="salecontribute" resultMap="BaseResultMap" parameterType="com.icss.bean.Signed">
+  	SELECT sale,SUM(studyfee+spacefee+backfee+depositfee) studyfee, ifnull(SUM(amount),0) depositfee 
+  		,COUNT(s.sid) speoplenum, COUNT(i.sid) backfee 
+  	FROM signed s LEFT JOIN 
+		(SELECT sid,SUM(amount) amount FROM iaer GROUP BY sid) i 
+		ON s.sid = i.sid WHERE stime BETWEEN #{stime,jdbcType=VARCHAR} AND #{sremark,jdbcType=VARCHAR}
+		AND dept = (SELECT d_name FROM view_empallinfo where ename=#{sale,jdbcType=VARCHAR}) AND s.stateid &lt;=10
+	GROUP BY sale ORDER BY studyfee DESC
+  </select>
+  
+  <!-- 查看所有人的签单和收款金额 -->
+  <select id="allsalecontribute" resultMap="BaseResultMap" parameterType="com.icss.bean.Signed">
+  	SELECT sale,SUM(studyfee) studyfee, ifnull(SUM(amount),0) depositfee FROM signed s LEFT JOIN 
+		(SELECT sid,SUM(amount) amount FROM iaer GROUP BY sid) i 
+		ON s.sid = i.sid WHERE stime BETWEEN #{stime,jdbcType=VARCHAR} AND #{sremark,jdbcType=VARCHAR}
+	GROUP BY sale ORDER BY studyfee DESC
+  </select>
+  
+  <!-- 查看指定部门中人员的签单和收款 -->
+  <select id="deptempiaer"  resultMap="BaseResultMap" parameterType="com.icss.bean.Signed">
+  	SELECT sale,sum(studyfee+spacefee+backfee+depositfee) studyfee,IFNULL(sum(a),0) depositfee,COUNT(s.sid) speoplenum ,
+  	count(i.sid)  backfee
+  	FROM signed s 
+  	LEFT JOIN (SELECT sid,sum(amount) a FROM iaer GROUP BY sid) i on i.sid = s.sid
+	WHERE dept =#{sale,jdbcType=VARCHAR} AND stime  BETWEEN #{stime,jdbcType=VARCHAR} AND #{sremark,jdbcType=VARCHAR} AND s.stateid &lt;=10
+	GROUP BY sale ORDER BY studyfee desc
+  </select>
+  
+  <!-- 已完成的退返款申请的信息 （可打印）-->
+  <select id="tobeprint" resultMap="BaseResultMap">
+  	SELECT s.sid, scustomername,scustomerschool, scustomercardid, scustomerbankcardid,bank,
+	studyfee+spacefee+backfee+depositfee studyfee,dbamount backfee,dbtime stime,dbremark sremark,dbemp sale FROM signed s 
+	INNER JOIN drawback d 
+	on s.sid = d.sid 
+	WHERE s.stateid=10
+  </select>
+  
+   <!-- 查看所有的签单信息  -->
+  <select id="allsign" resultMap="SignedMap">
+  	select 
+	    si.sid, stime, sbusinesstype, scustomername, scustomerschool, scustomercollege, scustomermajor, 
+	    scustomercardid, scustomerbankcardid, scustomergrade, speoplenum, studyfee, spacefee, 
+	    backfee, depositfee, sale, dept, sarea, sremark, ifnull(allmoney,0) stateid,st.`condition` bank
+	    from signed si INNER JOIN `status` st ON si.stateid = st.stateid
+	    LEFT JOIN (SELECT sid,sum(amount) allmoney FROM iaer GROUP BY sid) i ON
+		si.sid = i.sid
+	order by stateid, stime desc,backfee
+  </select>
+  
+  <!-- 查询状态为未收款的数据 -->
+  <select id="nopayinfo" resultMap="BaseResultMap" parameterType="com.icss.bean.Signed">
+  	SELECT  
+  	<include refid="Base_Column_List" /> 
+  	FROM signed WHERE stateid =1 
+  	<if test="dept != null">
+  		AND dept=(SELECT d_name FROM view_empallinfo WHERE ename=#{dept,jdbcType=VARCHAR})
+  	</if>
+  	<if test="sale != null">
+  		AND sale=#{sale,jdbcType=VARCHAR}
+  	</if>
+  </select>
+
+  <!-- 查看stateid 为5-9的的所有信息  -->
+  <select id="selectByAll" resultMap="DrawbackMap">
+  	select s.sid,d.dbid,d.dbtime,d.dbemp,d.dbamount,d.scustomerbankcardid,d.scustomercardid,d.dbtype,d.dbremark,st.`condition`,s.stateid,
+  	s.scustomername
+	from  signed s 
+	inner join drawback d on d.sid = s.sid 
+	INNER JOIN `status` st on st.stateid = s.stateid
+	where s.stateid between "5" and "9"
+  </select> 
+ <!-- 更新 stateid 为5-9的的所有信息  -->
+ <update id="updateByStateid"  parameterType="com.icss.bean.Signed">
+ 	UPDATE signed SET  stateid = #{stateid,jdbcType=INTEGER}   where sid = #{sid,jdbcType=INTEGER}
+ </update> 
+  <!-- 主管批量同意 -->
+  <update id="zhuguanagree" parameterType="java.util.List">
+  	update drawback
+    set stateid = 6
+    where dbid in
+   <foreach collection="list" item="ids"  open="(" separator="," close=")">  
+        #{ids}
+   </foreach>
+  </update>
+  <!-- 总监批量同意 -->
+  <update id="zongjianagree" parameterType="java.util.List">
+  	update drawback
+    set stateid = 7
+    where dbid   in
+   <foreach collection="list" item="ids"  open="(" separator="," close=")">  
+        #{ids}
+   </foreach>
+  </update>
+  <!-- 副总批量同意 -->
+  <update id="fuzongagree" parameterType="java.util.List">
+  	update drawback
+    set stateid = 8
+    where dbid   in
+   <foreach collection="list" item="ids"  open="(" separator="," close=")">  
+        #{ids}
+   </foreach>
+  </update>
+  <!-- 总经理批量同意 -->
+  <update id="zongjingliagree" parameterType="java.util.List">
+  	update drawback
+    set stateid = 9
+    where dbid  in
+   <foreach collection="list" item="ids"  open="(" separator="," close=")">  
+        #{ids}
+   </foreach>
+  </update>
+  
+  <!-- 查询当前用户的上级领导的职位 -->
+  <select id="superjob" parameterType="java.lang.String" resultType="java.lang.String">
+  <bind name="ename" value="_parameter"/>
+  	SELECT e1.ejob FROM empinfo e1 INNER JOIN empinfo e2 on e1.eid = e2.superiorid where e2.ename=#{ename,idbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询当前用户查看自己的职位 -->
+  <select id="myjob" parameterType="java.lang.String" resultType="java.lang.String">
+  <bind name="ename" value="_parameter"/>
+  	SELECT ejob FROM empinfo where ename=#{ename,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据职位查询申请 -->
+   <select id="selectbyjob" resultMap="DrawbackMap" parameterType="java.lang.Integer" >
+    select dbid,dbtime,dbemp,dbamount,d.stateid,st.`condition` statu, s.stateid signedstatus,
+    dbtype,dbremark,d.sid,scustomername,scustomercardid,scustomerbankcardid
+    from drawback d inner join signed s on d.sid = s.sid 
+    INNER JOIN `status` st on st.stateid = d.stateid
+    where d.stateid = #{stateid,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查看下级的签单信息 -->
+  <select id="lowerlevesigninfo" parameterType="com.icss.bean.Signed" resultMap="BaseResultMap">
+   select 
+   s.sid, stime, sbusinesstype, scustomername, scustomerschool, scustomercollege, scustomermajor, 
+	    scustomercardid, scustomerbankcardid, scustomergrade, speoplenum, studyfee, spacefee, 
+	    backfee, depositfee, sale, dept, sarea, sremark, ifnull(allmoney,0) stateid,st.`condition` bank
+    from signed s INNER JOIN `status` st ON s.stateid = st.stateid
+    LEFT JOIN (SELECT sid,sum(amount) allmoney FROM iaer GROUP BY sid) i ON s.sid = i.sid
+  	<if test="sremark != null and sremark != ''">  
+        <choose>  
+            <when test='sremark.indexOf("主管") != -1'>  
+                WHERE sale in(
+				SELECT ename FROM empinfo where superiorid =(
+				SELECT eid FROM empinfo WHERE ename = #{sale,jdbcType=VARCHAR})) 
+            </when>  
+            <when test='sremark.indexOf("总监") != -1'>  
+               where dept=(
+				SELECT d_name FROM empinfo e INNER JOIN department d
+				ON e.did=d.did WHERE ename=#{sale,jdbcType=VARCHAR})  
+            </when>  
+            <otherwise>   
+            </otherwise>  
+        </choose>  
+    </if> 
+     order by stateid, stime desc
+  </select>
+  
+  <!-- 查看销售本月的签单与收款记录  -->
+  <select id="saleAchievement" resultMap="BaseResultMap">
+  	SELECT s.sid,sale,sign studyfee,IFNULL(payment,0) depositfee FROM 
+  	(SELECT sid, sale,sum(studyfee) sign  FROM signed WHERE date_format(stime,'%Y-%m')=date_format(now(),'%Y-%m') GROUP BY sale) s 
+  	LEFT JOIN (SELECT sid ,sum(amount) payment FROM iaer GROUP BY sid) i
+	ON s.sid = i.sid ORDER BY sign DESC;
+  </select>
+  
+  <!-- 查看今年各类型 收入排名-->
+  <select id="typeranking" resultMap="IaerMap">
+  	SELECT btname type, IFNULL(payment,0) amount FROM cusbus_type c 
+	LEFT JOIN (
+		SELECT sbusinesstype,sum(money) payment from signed s 
+		INNER JOIN (
+			SELECT sid,SUM(amount) money FROM iaer GROUP BY sid) i
+			ON s.sid=i.sid 
+			WHERE date_format(stime,'%Y')=date_format(now(),'%Y')
+			GROUP BY sbusinesstype ) a
+	ON c.btname = a.sbusinesstype;
+  </select>
+  
+  <!-- 按各种条件查询收支记录  -->
+  <select id="iaerbycondition" resultMap="IaerMap" parameterType="com.icss.bean.Signed">
+  	SELECT id,time,type,amount,handler,remark,s.sid,s.sale,s.scustomername,s.scustomerschool FROM iaer i
+	INNER JOIN signed s ON s.sid=i.sid 
+	<if test="stime != null and sremark !=null" >
+		 WHERE time BETWEEN #{stime,jdbcType=VARCHAR} AND #{sremark,jdbcType=VARCHAR}
+	</if>
+	<if test="scustomerschool != null" >
+		 AND scustomerschool= #{scustomerschool,jdbcType=VARCHAR}
+	</if>
+	<if test="sbusinesstype != null" >
+		 AND type= #{sbusinesstype,jdbcType=VARCHAR}
+	</if>
+	<if test="bank != null" >
+		 AND remark= #{bank,jdbcType=VARCHAR}
+	</if>
+	<if test="sale != null" >
+		 AND sale= #{sale,jdbcType=VARCHAR}
+	</if>
+	<if test="sarea != null" >
+		 AND handler= #{sarea,jdbcType=VARCHAR}
+	</if>
+	
+  </select>
+  
+  <!-- 查看总共的收入与支出 -->
+  <select id="alliaeramount" resultMap="IaerMap" parameterType="com.icss.bean.Signed">
+  	SELECT SUM(amount) amount,type FROM iaer
+  	<if test="stime != null and sremark !=null" >
+		 WHERE time BETWEEN #{stime,jdbcType=VARCHAR} AND #{sremark,jdbcType=VARCHAR}
+	</if>
+  	GROUP BY type ORDER BY amount DESC
+  </select>
+  
+  <!-- 查看某个签单的收款总额（只能是未收款和已收款的） -->
+  
+  <!-- 更新返款申请的记录 （不同意及理由） -->
+  <update id="opporeason" parameterType="com.icss.bean.Drawback">
+  	 update drawback
+    <set >
+      <if test="dbtime != null" >
+        dbtime = #{dbtime,jdbcType=VARCHAR},
+      </if>
+      <if test="dbemp != null" >
+        dbemp = #{dbemp,jdbcType=VARCHAR},
+      </if>
+      <if test="dbamount != null" >
+        dbamount = #{dbamount,jdbcType=REAL},
+      </if>
+      <if test="dbtype != null" >
+        dbtype = #{dbtype,jdbcType=INTEGER},
+      </if>
+      <if test="stateid != null" >
+        stateid = #{stateid,jdbcType=INTEGER},
+      </if>
+      <if test="dbremark != null" >
+        dbremark = #{dbremark,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where dbid = #{dbid,jdbcType=INTEGER}
+  </update>
+  
+ <!-- 查看所有部门的签单与收入 c -->
+<select id="DepyCollections" resultMap="BaseResultMap" parameterType="com.icss.bean.Signed">
+	SELECT dept sale,SUM(s.studyfee+s.spacefee+s.backfee+s.depositfee) studyfee , SUM(a) depositfee,COUNT(s.sid) speoplenum,
+	COUNT(i.sid) backfee
+	from signed s
+	LEFT JOIN (SELECT sid,SUM(amount) a FROM iaer GROUP BY sid) i 
+	ON s.sid = i.sid
+	where s.stime   
+	BETWEEN #{stime,jdbcType=VARCHAR}
+	and  #{sremark,jdbcType=VARCHAR} AND s.stateid &lt;=10
+	GROUP BY dept 
+</select>
+<!-- 根据部门查询签单与收入 c -->
+<select id="AmountCollections"  resultMap="SignedMap"  >
+	SELECT  sg.dept as dept , SUM(sg.studyfee) studyfee,ABS(ie.amount) as amount
+	FROM signed sg
+	Left Join iaer ie on ie.sid=sg.sid
+	INNER JOIN department dt on sg.dept = dt.d_name
+	where sg.stime
+	BETWEEN  #{lasttime,jdbcType=VARCHAR}
+	and  #{nexttime,jdbcType=VARCHAR} and sg.dept=#{dept,jdbcType=VARCHAR}
+	GROUP BY dt.d_name
+</select>
+
+  <!-- 查询视图里的所有信息  c-->
+  <select id="view_select" parameterType="java.util.List" resultMap="SignedMap" >
+   	select stime,sbusinesstype,	scustomername,scustomerschool,scustomercollege,scustomermajor,
+   	scustomercardid,scustomerbankcardid,scustomergrade,speoplenum,
+   	studyfee,spacefee,backfee,depositfee,subtotal,ctime,tale,sale,dept,sarea,sremark,
+   	bank, `condition` from view_signandpayment
+  </select>
+  
+</mapper>

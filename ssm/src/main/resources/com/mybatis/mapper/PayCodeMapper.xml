@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icss.dao.PayCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.icss.bean.PayCode" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="crid" property="crid" jdbcType="INTEGER" />
+    <result column="ctime" property="ctime" jdbcType="VARCHAR" />
+    <result column="sale" property="sale" jdbcType="INTEGER" />
+    <result column="ctype" property="ctype" jdbcType="INTEGER" />
+    <result column="carea" property="carea" jdbcType="INTEGER" />
+    <result column="creceivables" property="creceivables" jdbcType="DECIMAL" />
+    <result column="cremark" property="cremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.icss.bean.SaleRanking" id="salerankingmap">
+  	<result column="ename" property="ename" jdbcType="VARCHAR"/>
+  	<result column="dname" property="dname" jdbcType="VARCHAR"/>
+  	<result column="countmoney" property="money" jdbcType="DECIMAL"/>
+  </resultMap>
+  <resultMap id="CodesInfoResultMap" type="com.icss.bean.CodesInfo" >
+    <result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="crid" property="crid" jdbcType="INTEGER" />
+    <result column="ctime" property="ctime" jdbcType="VARCHAR" />
+    <result column="creceivables" property="creceivables" jdbcType="DECIMAL" />
+    <result column="cremark" property="cremark" jdbcType="VARCHAR" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="btname" property="btname" jdbcType="VARCHAR" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.icss.bean.Receivables" id="creceivablesMap">
+  	<result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="crid" property="crid" jdbcType="INTEGER" />
+    <result column="csale" property="csale" jdbcType="INTEGER" />
+    <result column="ctype" property="ctype" jdbcType="INTEGER" />
+    <result column="carea" property="carea" jdbcType="INTEGER" />
+    <result column="ctime" property="ctime" jdbcType="VARCHAR" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="btname" property="btname" jdbcType="VARCHAR" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="crname" property="crname" jdbcType="VARCHAR" />
+    <result column="creceivables" property="creceivables" jdbcType="VARCHAR" />
+    <result column="countmoney" property="countmoney" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.icss.bean.Codecustomer" id="CodecustomerMap">
+  	<result column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="crid" property="crid" jdbcType="INTEGER" />
+    <result column="ctime" property="ctime" jdbcType="VARCHAR" />
+    <result column="sale" property="sale" jdbcType="INTEGER" />
+    <result column="ctype" property="ctype" jdbcType="INTEGER" />
+    <result column="carea" property="carea" jdbcType="INTEGER" />
+   	<result column="creceivables" property="creceivables" jdbcType="DECIMAL" />
+    <result column="syid" property="syid" jdbcType="INTEGER" />
+    <result column="btname" property="btname" jdbcType="VARCHAR" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="syname" property="syname" jdbcType="VARCHAR" />
+    <result column="stuition" property="stuition" jdbcType="INTEGER" />
+    <result column="crname" property="crname" jdbcType="VARCHAR" />
+    <result column="crsex" property="crsex" jdbcType="VARCHAR" />
+    <result column="crschool" property="crschool" jdbcType="VARCHAR" />
+    <result column="crmajor" property="crmajor" jdbcType="VARCHAR" />
+    <result column="crtel" property="crtel" jdbcType="VARCHAR" />
+    <result column="cronline" property="cronline" jdbcType="INTEGER" />
+    <result column="summoney" property="summoney" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="StudydirectionMap" type="com.icss.bean.Studydirection" >
+    <id column="syid" property="syid" jdbcType="INTEGER" />
+    <result column="syname" property="syname" jdbcType="VARCHAR" />
+    <result column="studytime" property="studytime" jdbcType="REAL" />
+    <result column="stuition" property="stuition" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="LanguageMap" type="com.icss.bean.Language" >
+    <id column="lid" property="lid" jdbcType="INTEGER" />
+    <result column="lname" property="lname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cid, crid, ctime, sale, ctype, carea, creceivables, cremark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay_code
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pay_code
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.icss.bean.PayCode" >
+    insert into pay_code (cid, crid, ctime, 
+      sale, ctype, carea, 
+      creceivables, cremark)
+    values (#{cid,jdbcType=INTEGER}, #{crid,jdbcType=INTEGER}, #{ctime,jdbcType=VARCHAR}, 
+      #{sale,jdbcType=INTEGER}, #{ctype,jdbcType=INTEGER}, #{carea,jdbcType=INTEGER}, 
+      #{creceivables,jdbcType=DECIMAL}, #{cremark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.icss.bean.PayCode" useGeneratedKeys="true" keyProperty="cid">
+    insert into pay_code
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="crid != null" >
+        crid,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="sale != null" >
+        sale,
+      </if>
+      <if test="ctype != null" >
+        ctype,
+      </if>
+      <if test="carea != null" >
+        carea,
+      </if>
+      <if test="creceivables != null" >
+        creceivables,
+      </if>
+      <if test="cremark != null" >
+        cremark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="crid != null" >
+        #{crid,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="sale != null" >
+        #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="ctype != null" >
+        #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="carea != null" >
+        #{carea,jdbcType=INTEGER},
+      </if>
+      <if test="creceivables != null" >
+        #{creceivables,jdbcType=DECIMAL},
+      </if>
+      <if test="cremark != null" >
+        #{cremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icss.bean.PayCode" >
+    update pay_code
+    <set >
+      <if test="crid != null" >
+        crid = #{crid,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=VARCHAR},
+      </if>
+      <if test="sale != null" >
+        sale = #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="ctype != null" >
+        ctype = #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="carea != null" >
+        carea = #{carea,jdbcType=INTEGER},
+      </if>
+      <if test="creceivables != null" >
+        creceivables = #{creceivables,jdbcType=DECIMAL},
+      </if>
+      <if test="cremark != null" >
+        cremark = #{cremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icss.bean.PayCode" >
+    update pay_code
+    set crid = #{crid,jdbcType=INTEGER},
+      ctime = #{ctime,jdbcType=VARCHAR},
+      sale = #{sale,jdbcType=INTEGER},
+      ctype = #{ctype,jdbcType=INTEGER},
+      carea = #{carea,jdbcType=INTEGER},
+      creceivables = #{creceivables,jdbcType=DECIMAL},
+      cremark = #{cremark,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <select id="ranking" resultMap="salerankingmap" parameterType="java.lang.String">
+  <bind name="date" value=" _parameter + '%'" />
+   	SELECT e.ename , d.d_name dname, SUM(p.creceivables) countmoney FROM pay_code p
+	INNER JOIN empinfo e ON p.sale = e.eid INNER JOIN department d ON d.did = e.did WHERE ctime LIKE #{date,jdbcType=VARCHAR}
+	 GROUP BY p.sale , e.did ORDER BY countmoney DESC
+  </select>
+  <select id="bustyperanking" resultMap="salerankingmap" parameterType="java.lang.String" >
+  <bind name="date" value=" _parameter + '%'" />
+  	 SELECT ct.btname ename, IFNULL(m,0) countmoney FROM cusbus_type ct 
+	LEFT JOIN (SELECT t.btid, btname,SUM(creceivables) m FROM pay_code p INNER JOIN cusbus_type t ON p.ctype = t.btid WHERE p.ctime LIKE #{date,jdbcType=VARCHAR} GROUP BY ctype) a ON
+	ct.btid = a.btid ORDER BY countmoney DESC
+  </select>
+  <select id="deptranking" resultMap="salerankingmap" parameterType="java.lang.String">
+  <bind name="date" value=" _parameter + '%'" />
+  SELECT d_name dname ,IFNULL(countmoney,0) countmoney FROM department d LEFT JOIN (
+	SELECT d.did,d_name dname,SUM(p.creceivables) countmoney FROM pay_code p INNER JOIN empinfo e ON e.eid = p.sale INNER JOIN department d ON d.did = e.did 
+	  WHERE p.ctime LIKE #{date,jdbcType=VARCHAR}
+	  GROUP BY e.did ) a ON d.did = a.did WHERE d_name LIKE '销售%' ORDER BY countmoney DESC
+  </select>
+  <select id="arearanking" resultMap="salerankingmap" parameterType="java.lang.String">
+  	<bind name="date" value=" _parameter + '%'" />
+	SELECT area.aname ename, IFNULL(money,0) countmoney  FROM cusarea area LEFT JOIN (
+		SELECT a.aid, aname ename ,SUM(creceivables) money FROM pay_code p INNER JOIN cusarea a ON p.carea = a.aid WHERE p.ctime LIKE #{date,jdbcType=VARCHAR} GROUP BY carea
+	) b ON area.aid = b.aid ORDER BY countmoney DESC
+  </select>
+  
+  <select id="monthranking" resultMap="salerankingmap" parameterType="java.lang.String">
+  	<bind name="date" value=" _parameter + '%'" />
+ 	 select month(ctime) ename, sum(creceivables) countmoney
+	from pay_code
+	WHERE year(ctime)= #{date,jdbcType=VARCHAR}
+	group by year(ctime),month(ctime) ORDER BY month(ctime) 
+  </select>
+  
+  <select id="monthtyperanking" resultMap="salerankingmap" parameterType="com.icss.bean.PayCode">
+  	select btname ename,
+	month(ctime) dname,
+	sum(creceivables) money
+	from pay_code p INNER JOIN cusbus_type t ON p.ctype = t.btid
+	WHERE btname = #{cremark,jdbcType=VARCHAR } AND year(ctime) = #{ctime,jdbcType=VARCHAR }
+	group by year(ctime),
+	month(ctime),ctype ORDER BY month(ctime)
+  </select>
+  
+  <!-- 陈强  -->
+   <select id="selectAll"  resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from pay_code 
+  </select>
+  
+  <select id="selectAllInfo" resultMap="CodesInfoResultMap" >
+   SELECT pay_code.cid,customerinfo.crname crname,pay_code.ctime,empinfo.ename, cusbus_type.btname,cusarea.aname,pay_code.creceivables,pay_code.cremark FROM pay_code 
+	INNER JOIN customerinfo ON  customerinfo.crid=pay_code.crid
+	INNER JOIN cusarea ON cusarea.aid=pay_code.carea
+	INNER JOIN empinfo ON empinfo.eid=pay_code.sale
+	INNER JOIN cusbus_type ON cusbus_type.btid = pay_code.ctype 
+	ORDER BY cid 
+  </select>
+  
+  <select id="selectonecodeBycid" resultMap="CodesInfoResultMap" parameterType="java.lang.Integer">
+  	SELECT pay_code.cid,customerinfo.crname,pay_code.ctime,empinfo.ename, cusbus_type.btname,cusarea.aname,pay_code.creceivables,pay_code.cremark FROM pay_code 
+			INNER JOIN customerinfo ON  customerinfo.crid=pay_code.crid
+			INNER JOIN cusarea ON cusarea.aid=pay_code.carea
+			INNER JOIN empinfo ON empinfo.eid=pay_code.sale
+			INNER JOIN cusbus_type ON cusbus_type.btid = pay_code.ctype 
+		 where cid=#{cid,jdbcType=INTEGER}
+  </select>
+  <select id="creceivables" resultMap="creceivablesMap">
+	  	SELECT a.cid,a.crid,a.ctime,a.sale,a.ctype,a.carea,a.creceivables,a.countmoney,e.ename,t.btname,ar.aname, c.crname FROM
+	(SELECT p1.cid,p1.crid,p1.ctime,p1.sale,p1.ctype,p1.carea,p1.creceivables,IFNULL(p2.countmoney,0) countmoney FROM pay_code p1 LEFT JOIN (SELECT SUM(prpaymoney) countmoney, prpaycode FROM pay_record  GROUP BY prpaycode )p2 
+	ON p1.cid = p2.prpaycode ) a INNER JOIN customerinfo c ON c.crid=a.crid
+	INNER JOIN empinfo e ON e.eid = a.sale 
+	INNER JOIN cusbus_type t on t.btid = a.ctype
+	INNER JOIN cusarea ar on ar.aid = a.carea
+	WHERE a.creceivables >a.countmoney or a.countmoney is null
+  </select>
+  
+  <!-- 已签约客户的信息 -->
+  <select id="codecustomer" resultMap="CodecustomerMap">
+  		SELECT cid ,p.crid, ctime,sale, ctype,carea, creceivables ,p. syid ,btname,aname,syname,stuition ,  crname,crsex,crschool, crmajor,crtel,cronline ,summoney FROM (
+	SELECT cid,crid,ctime,sale,ctype,carea,creceivables,substring_index(cremark,'!',1) syid FROM pay_code ) p 
+	INNER JOIN cusbus_type bt ON bt.btid = p.ctype 
+	INNER JOIN cusarea ca ON ca.aid= p.carea 
+	INNER JOIN studydirection sd ON sd.syid = p.syid 
+	INNER JOIN customerinfo cr ON cr.crid = p.crid
+	INNER JOIN (SELECT prpaycode ,SUM(prpaymoney) summoney FROM pay_record GROUP BY prpaycode ) pp ON pp.prpaycode = p.cid WHERE cronline =3
+  </select>
+
+
+  <!-- 学习方向   -->
+  <select id="studydirection" resultMap="StudydirectionMap">
+  	select syid,syname,studytime,stuition from studydirection
+  </select>
+  
+  <!-- 学习语言  -->
+  <select id="studylanguage" resultMap="LanguageMap">
+  	select lid, lname from language
+  </select>
+  
+  <!-- 就业方向  -->
+  <select id="ecity" resultMap="LanguageMap">
+  	SELECT ecid lid,ecname lname FROM employmentcity
+  </select>
+</mapper>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.1.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:/com/config/jdbc.properties" />
+	</bean>	
+	      
+	<!-- 数据源的配置  -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- data source configuration -->
+		<property name="initialSize" value="60" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="50" />
+		<property name="minIdle" value="10"/>
+
+		<!-- 处理mysql8小时自动断开连接的问题 -->
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="validationQuery" value="select 1" />
+		<property name="timeBetweenEvictionRunsMillis" value="20000" />
+		<property name="numTestsPerEvictionRun" value="100" />
+	</bean>
+	
+	<!-- 事务相关控制 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	
+	<tx:advice id="userTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.icss.business.*.*(..))" id="pc"/>
+		<aop:advisor advice-ref="userTxAdvice" pointcut-ref="pc" />
+	</aop:config>
+	
+	<!-- MyBatis sqlSessionFactory 配置 mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/SqlMapconfig.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+		
+	<!-- Shiro配置 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+  	<property name="realm" ref="myRealm"/> 
+	</bean>
+	
+	<!-- 自定义Realm -->
+	<bean id="myRealm" class="com.icss.util.MyRealm">  
+	</bean>
+	
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	   
+	<!-- AOP式方法级权限检查 -->   
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+	<!-- 这个属性为true是为了能使用aop方式运行controller，即在controller中可以直接调用实体类  -->
+	<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	
+  		<!-- 自定义filters -->
+	<bean id="roleOrFilter" class="com.icss.util.OrRolesAuthorizationFilter">  
+	</bean>	
+	<bean id="permOrFilter" class="com.icss.util.OrPermsAuthorizationFilter">  
+	</bean>
+    <!-- Shiro过滤器 核心-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口,这个属性是必须的 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 身份认证失败，则跳转到登录页面的配置 -->
+        <property name="loginUrl" value="/login.jsp"/>
+        <!-- 成功登入  -->
+        <property name="successUrl" value="/emp/adminindex.do" />
+        <!-- 权限认证失败，则跳转到指定页面 -->
+        <property name="unauthorizedUrl" value="/error.jsp"/>
+        <!-- 添加各种验证过滤器 -->  
+        <property name="filters">  
+            <map>  
+                <entry key="roleOr" value-ref="roleOrFilter"/>  
+                <entry key="permor" value-ref="permOrFilter"/> 
+            </map>  
+        </property>  
+        <!-- Shiro连接约束配置,即过滤链的定义 -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!--anon 表示匿名访问，不需要认证以及授权-->
+                /login.jsp=anon
+                <!--authc表示需要认证 没有进行身份认证是不能进行访问的-->
+             	/user/logout=authc 
+             	/user/edit_pwd.do=authc
+             	/user/edit.do=authc 
+             	/user/update.do=authc
+             	<!-- role[用户角色],perms[用户权限]
+             	roleOr["用户角色1","用户角色2"...],permOr["用户权限1","用户权限2"...]
+             	roleOr只要满足一个角色即可访问                       permOr只要满足一个权限即可访问
+             	 -->
+             	<!--
+             	权限访问形式：URL:具体权限   (*代表最高权限，具体权限如：add或者delete，可以随意写内容，只要匹配字符串成功即可访问)           
+             	数据库中的最高权限可以访问任何具体权限的URL  
+             	如：xml：/user/update.do=authc,perms[user:add]  数据库 ：name为user:*，则该用户亦可访问/user/update.do 
+             	-->
+             	<!-- 
+             	访问规则是按顺序进行的，因此可以吧具体内容的URL放前面，泛型的URL放后面，可以实现这个效果：某个URL的 具体页面不用通过权限访问,
+             	如：/empinfo/showMe.do=authc
+             	  /empinfo/**=authc,roles[teacher],perms[emp:*]
+             	则所有已经登陆的用户都可以访问/empinfo/showMe.do
+		        -->
+				/login.jsp=anon
+				<!--authc表示需要认证 没有进行身份认证是不能进行访问的-->
+				/user/logout=authc 
+				/user/edit_pwd.do=authc 
+				/user/adminindex.do=authc
+				<!-- 销售（所有签单、导入签单、新增签单、删除签单）-->
+				/signed/allsigninfo.do=roleOr["president,vpresident,salesA,assistant"] 
+				/signed/readExcel.do=roleOr["president,vpresident,salesA,salesB,salesC"]
+				/signed/insertonesign.do=roleOr["president,vpresident,salesA,salesB,salesC"] 
+				/signed/delectmultiple.do=roleOr["president,vpresident,salesA,salesB,salesC"] 
+				<!-- 财务（退款、返款、收款、收支记录查询） -->
+				/signed/addoneiaer.do**=roleOr["president,vpresident,financeA,financeB,financeC"]
+				/signed/firstincomepay.do=roleOr["president,vpresident,financeA,financeB,financeC"]		
+				/signed/iaer.do=roleOr["president,vpresident,financeA,financeB,financeC"]
+				/signed/onebackmoney.do=roleOr["financeA,financeB,financeC"]
+				/signed/**=authc
+				<!-- 退出的URL -->
+				/user/logout.do = logout
+             	
+            </value>
+        </property>
+    </bean>
+	
+	
+	<!-- maven项目请求不到 注解方式uri -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	    <property name="order" value="0" />
+	  </bean> -->
+	
+	
+	<import resource="ImplAndBusinessBeans.xml" />
+</beans>

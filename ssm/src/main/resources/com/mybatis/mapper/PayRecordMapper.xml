@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icss.dao.PayRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.icss.bean.PayRecord" >
+    <id column="prid" property="prid" jdbcType="INTEGER" />
+    <result column="prtime" property="prtime" jdbcType="VARCHAR" />
+    <result column="prhandler" property="prhandler" jdbcType="INTEGER" />
+    <result column="prpaycode" property="prpaycode" jdbcType="INTEGER" />
+    <result column="prpaytype" property="prpaytype" jdbcType="INTEGER" />
+    <result column="prpaymoney" property="prpaymoney" jdbcType="REAL" />
+  </resultMap>
+  
+  <resultMap id="SigdetMap" type="com.icss.bean.Sigdet" >
+    <result column="prtime" property="prtime" jdbcType="VARCHAR" />
+    <result column="ptname" property="ptname" jdbcType="VARCHAR" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="prpaymoney" property="prpaymoney" jdbcType="REAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    prid, prtime, prhandler, prpaycode, prpaytype, prpaymoney
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pay_record
+    where prid = #{prid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pay_record
+    where prid = #{prid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.icss.bean.PayRecord" >
+    insert into pay_record (prid, prtime, prhandler, 
+      prpaycode, prpaytype, prpaymoney
+      )
+    values (#{prid,jdbcType=INTEGER}, #{prtime,jdbcType=VARCHAR}, #{prhandler,jdbcType=INTEGER}, 
+      #{prpaycode,jdbcType=INTEGER}, #{prpaytype,jdbcType=INTEGER}, #{prpaymoney,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.icss.bean.PayRecord" >
+    insert into pay_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prid != null" >
+        prid,
+      </if>
+      <if test="prtime != null" >
+        prtime,
+      </if>
+      <if test="prhandler != null" >
+        prhandler,
+      </if>
+      <if test="prpaycode != null" >
+        prpaycode,
+      </if>
+      <if test="prpaytype != null" >
+        prpaytype,
+      </if>
+      <if test="prpaymoney != null" >
+        prpaymoney,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prid != null" >
+        #{prid,jdbcType=INTEGER},
+      </if>
+      <if test="prtime != null" >
+        #{prtime,jdbcType=VARCHAR},
+      </if>
+      <if test="prhandler != null" >
+        #{prhandler,jdbcType=INTEGER},
+      </if>
+      <if test="prpaycode != null" >
+        #{prpaycode,jdbcType=INTEGER},
+      </if>
+      <if test="prpaytype != null" >
+        #{prpaytype,jdbcType=INTEGER},
+      </if>
+      <if test="prpaymoney != null" >
+        #{prpaymoney,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.icss.bean.PayRecord" >
+    update pay_record
+    <set >
+      <if test="prtime != null" >
+        prtime = #{prtime,jdbcType=VARCHAR},
+      </if>
+      <if test="prhandler != null" >
+        prhandler = #{prhandler,jdbcType=INTEGER},
+      </if>
+      <if test="prpaycode != null" >
+        prpaycode = #{prpaycode,jdbcType=INTEGER},
+      </if>
+      <if test="prpaytype != null" >
+        prpaytype = #{prpaytype,jdbcType=INTEGER},
+      </if>
+      <if test="prpaymoney != null" >
+        prpaymoney = #{prpaymoney,jdbcType=REAL},
+      </if>
+    </set>
+    where prid = #{prid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.icss.bean.PayRecord" >
+    update pay_record
+    set prtime = #{prtime,jdbcType=VARCHAR},
+      prhandler = #{prhandler,jdbcType=INTEGER},
+      prpaycode = #{prpaycode,jdbcType=INTEGER},
+      prpaytype = #{prpaytype,jdbcType=INTEGER},
+      prpaymoney = #{prpaymoney,jdbcType=REAL}
+    where prid = #{prid,jdbcType=INTEGER}
+  </update>
+  <select id="countmomey" parameterType="java.lang.Integer" resultType="java.lang.Float">
+  SELECT IFNULL(SUM(rd.prpaymoney),0) prpaymoney FROM pay_record rd WHERE rd.prpaycode = #{prpaycode,jdbcType=INTEGER}
+  </select>
+  <select id="sigpaydet" parameterType="java.lang.Integer" resultMap="SigdetMap" >
+  SELECT prtime , ptname, prpaymoney , ename FROM (
+		SELECT prtime,prpaymoney , prpaytype,prhandler FROM pay_record WHERE prpaycode = #{prpaycode,jdbcType=INTEGER} ) pr 
+	INNER JOIN pay_type pt on pt.ptid = pr.prpaytype
+  INNER JOIN empinfo e ON e.eid = pr.prhandler 
+  </select>
+</mapper>
